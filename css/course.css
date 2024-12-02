@@ -1,0 +1,152 @@
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 20px 0;
+    color: #3f3e3e;
+}
+
+/* Courses Section */
+.courses-section {
+    padding: 20px;
+    background-color: #FF3B81;
+    border-radius: 10px;
+    max-width: auto;
+    margin: 0 auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* Individual Course Card */
+.course-card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.course-icon {
+    font-size: 2rem;
+    color: #FF3B81;
+    margin-bottom: 10px;
+    
+}
+
+.course-title {
+  text-decoration:underline #FF3B81;
+    font-size: 1.1 rem;
+    font-weight: bold;
+    color: #1E1E1E;
+    margin: 10px 0;
+}
+
+.course-description {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden; 
+}
+
+.carousel-container {
+  width: 100%;
+  overflow: hidden;
+  background-color: #f9f9f9;
+  padding: 20px 0;
+}
+
+.carousel-track {
+  display: flex;
+  animation: transform 0.5s ease;
+  will-change: transform; 
+  flex-wrap: nowrap;
+}
+
+.carousel-item {
+  flex: 0 0 calc(25% - 30px);
+  margin: 0 15px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.lecture-image {
+  width: 50%;
+  height: auto;
+  border-radius: 12px;
+}
+
+.lecture-name {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 10px 0 5px;
+  color: black !important;
+}
+
+.lecture-position {
+  font-size: 1em;
+  color: #555;
+}
+
+
+@keyframes scrollCarousel {
+  0% {
+      transform: translateX(0);
+  }
+  100% {
+      transform: translateX(-100%);
+  }
+}
+
+
+@media (max-width: 1024px) {
+  
+  .carousel-item {
+      flex: 0 0 calc(33.33% - 30px);
+  }
+
+  @keyframes scrollCarousel {
+      0% {
+          transform: translateX(0);
+      }
+      100% {
+          transform: translateX(-300%);
+      }
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-item {
+      flex: 0 0 calc(33.33% - 30px); 
+  }
+
+  @keyframes scrollCarousel {
+      0% {
+          transform: translateX(0);
+      }
+      100% {
+          transform: translateX(-300%); 
+      }
+  }
+}
