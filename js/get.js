@@ -1,7 +1,6 @@
 document.getElementById('admissionForm').addEventListener('submit', async function(event) {
-    event.preventDefault(); // Prevent default form submission
+    event.preventDefault(); 
 
-    // Get form data
     const formData = new FormData(this);
     const formObject = {};
     formData.forEach((value, key) => {
@@ -17,12 +16,12 @@ document.getElementById('admissionForm').addEventListener('submit', async functi
 
     // Send data to the backend
     try {
-        const response = await fetch('http://localhost:3000/submit-admission', {
+        const response = await fetch('/api/submit-admission', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formObject), // Send form data as JSON
+            body: JSON.stringify(formObject), 
         });
 
         const result = await response.json();

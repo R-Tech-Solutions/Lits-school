@@ -83,33 +83,33 @@ const lectureSchema = new mongoose.Schema({
 
 const Lecture = mongoose.model('Lecture', lectureSchema);
 
-// Configure Multer
+
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-// POST Endpoint: Add Lecture with Optimized Image
+
 app.post('/api/lectures', upload.single('image'), async (req, res) => {
   try {
     const { name, position } = req.body;
 
-    // Ensure an image file is provided
+
     if (!req.file) {
       return res.status(400).json({ error: 'Image file is required' });
     }
 
-    // Optimize the uploaded image using Sharp
+
     const optimizedImageBuffer = await sharp(req.file.buffer)
-      .resize({ width: 300 }) // Resize image to 300px width (aspect ratio maintained)
-      .webp({ quality: 80 }) // Convert to WebP format with 80% quality
+      .resize({ width: 300 }) 
+      .webp({ quality: 80 }) 
       .toBuffer();
 
-    // Create a new lecture with optimized image
+
     const newLecture = new Lecture({
       name,
       position,
       image: {
         data: optimizedImageBuffer,
-        contentType: 'image/webp', // Image is now WebP
+        contentType: 'image/webp', 
       },
     });
 
@@ -129,31 +129,31 @@ app.post('/api/lectures', upload.single('image'), async (req, res) => {
   }
 });
 
-// GET Endpoint: Retrieve All Lectures with Base64 Images
+
 app.get('/api/lectures', async (req, res) => {
   try {
     const lectures = await Lecture.find();
 
-    // Convert the image buffer to Base64 format for each lecture
+
     const lecturesWithImages = lectures.map((lecture) => {
       const imageBase64 = lecture.image?.data
         ? `data:${lecture.image.contentType};base64,${lecture.image.data.toString('base64')}`
         : null;
 
       return {
-        ...lecture.toObject(), // Convert Mongoose document to plain object
-        imageUrl: imageBase64, // Include Base64-encoded image
+        ...lecture.toObject(), 
+        imageUrl: imageBase64, 
       };
     });
 
-    res.json(lecturesWithImages); // Send the lectures with images
+    res.json(lecturesWithImages); 
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error fetching lectures' });
   }
 });
 
-// GET Endpoint: Retrieve Optimized Image by ID
+
 app.get('/image/:id', async (req, res) => {
   try {
     const lecture = await Lecture.findById(req.params.id);
@@ -162,7 +162,7 @@ app.get('/image/:id', async (req, res) => {
     }
 
     res.set('Content-Type', lecture.image.contentType);
-    res.send(lecture.image.data); // Send the image binary data
+    res.send(lecture.image.data); 
   } catch (error) {
     console.error(error);
     res.status(500).send('Error retrieving image');
@@ -179,7 +179,7 @@ const transporter = nodemailer.createTransport({
 });
 
 
-app.post('/submit-admission', async (req, res) => {
+app.post('/api/submit-admission', async (req, res) => {
   const {
     academicDetails,
     firstName,
@@ -200,7 +200,6 @@ app.post('/submit-admission', async (req, res) => {
     subject: 'New Admission Form Submission',
     html: `
       <h2>Admission Form Submission</h2>
-      <h2>Admission Form Submission</h2>
       <h3>Academic Details</h3>
       <p><strong>School Name:</strong> ${academicDetails.schoolName}</p>
       <p><strong>Class:</strong> ${academicDetails.class}</p>
@@ -213,7 +212,6 @@ app.post('/submit-admission', async (req, res) => {
       <p><strong>Mobile Number:</strong> ${mobile}</p>
       <p><strong>Email:</strong> ${email}</p>
       <p><strong>Address:</strong> ${address}</p>
-
       <h3>Guardian Details</h3>
       <p><strong>Relation:</strong> ${guardianRelation}</p>
       <p><strong>Guardian Name:</strong> ${guardianName}</p>
