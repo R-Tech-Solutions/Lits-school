@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admission Form</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    /* Typewriter effect */
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+
+    @keyframes blink {
+      50% {
+        border-color: transparent;
+      }
+    }
+
+    #typewriter {
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid #000;
+      animation: typing 3s steps(20, end), blink 0.5s step-end infinite;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans">
+  <!-- Header -->
+  <header class="flex items-center justify-between bg-[#FF3B81] text-white px-6 py-4">
+    <div class="logo">
+      <img src="../images/logo1.png" alt="Logo">
+  </div>
+  <a
+  href="../index.html">
+    <button class="bg-[#000] px-4 py-2 rounded-md text-white">Home</button></a>
+  </header>
+<br>
+  <!-- Hero Section -->
+  <section class="relative">
+    <img src="../images/ielts1.jpg" alt="Banner" class="w-full h-[656px] object-cover">
+  </section>
+<br>
+  <!-- Admission Section -->
+  <section class="bg-[#FF3B81] py-10 px-6">
+    <h1 class="text-center text-3xl font-bold text-white">
+      <span id="typewriter">Make An Admission</span>
+    </h1>
+    <form id="admissionForm" class="mt-8 max-w-5xl mx-auto space-y-8">
+      <!-- Academic Details -->
+      <div data-aos="fade-up" class="bg-white p-6 rounded-lg shadow-md">
+        <div class="flex items-center space-x-3">
+          <i class="fas fa-book text-2xl text-[#FF3B81]"></i>
+          <h2 class="text-xl font-semibold text-gray-800">Academic Details</h2>
+        </div>
+        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-gray-600">School Name*</label>
+            <input type="text" name="schoolName" value="Language Infinity Training School" readonly class="w-full border-gray-900 rounded-md shadow-sm p-2 bg-gray-100">
+          </div>
+          <div>
+            <label class="block text-gray-600">Class*</label>
+            <select name="class" id="classSelect" class="w-full border-gray-900 rounded-md shadow-sm p-2">
+              <option value="">Select</option>
+              <option value="Japanese">Japanese</option>
+              <option value="French">French</option>
+              <option value="Chinese">Chinese</option>
+              <option value="Korean">Korean</option>
+              <option value="Hindi">Hindi</option>
+              <option value="English">English</option>
+              <option value="Russian">Russian</option>
+              <option value="Italy">Italy</option>
+              <option value="Arabic">Arabic</option>
+              <option value="German">German</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-gray-900">Section*</label>
+            <select name="section" id="sectionSelect" class="w-full border-gray-300 rounded-md shadow-sm p-2">
+              <option value="">Select</option>
+            </select>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Student Details -->
+      <div data-aos="fade-up" class="bg-white p-6 rounded-lg shadow-md">
+        <div class="flex items-center space-x-3">
+          <i class="fas fa-user-graduate text-2xl text-[#FF3B81]"></i>
+          <h2 class="text-xl font-semibold text-gray-800">Student Details</h2>
+        </div>
+        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input type="text" name="firstName" placeholder="First Name*" required class="w-full border-gray-300 rounded-md shadow-sm p-2">
+          <input type="text" name="lastName" placeholder="Last Name*" required class="w-full border-gray-300 rounded-md shadow-sm p-2">
+          <select name="gender" required class="w-full border-gray-300 rounded-md shadow-sm p-2">
+            <option value="">Select Gender*</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+          <input type="date" name="dob" required class="w-full border-gray-300 rounded-md shadow-sm p-2">
+          <input type="tel" name="mobile" placeholder="Student Mobile Number*" required class="w-full border-gray-300 rounded-md shadow-sm p-2">
+          <input type="email" name="email" placeholder="Email" class="w-full border-gray-300 rounded-md shadow-sm p-2">
+          <textarea name="address" placeholder="Permanent Address*" required class="w-full border-gray-300 rounded-md shadow-sm p-2"></textarea>
+        </div>
+      </div>
+  
+      <!-- Guardian Details -->
+      <div data-aos="fade-up" class="bg-white p-6 rounded-lg shadow-md">
+        <div class="flex items-center space-x-3">
+          <i class="fas fa-users text-2xl text-[#FF3B81]"></i>
+          <h2 class="text-xl font-semibold text-gray-800">Guardian Details</h2>
+        </div>
+        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <select name="guardianRelation" required class="w-full border-gray-300 rounded-md shadow-sm p-2">
+            <option value="">Select Relation*</option>
+            <option value="father">Father</option>
+            <option value="mother">Mother</option>
+            <option value="guardian">Guardian</option>
+          </select>
+          <input type="text" name="guardianName" placeholder="Guardian Name*" required class="w-full border-gray-300 rounded-md shadow-sm p-2">
+          <input type="tel" name="guardianMobile" placeholder="Guardian Number*" required class="w-full border-gray-300 rounded-md shadow-sm p-2">
+        </div>
+      </div>
+  
+      <!-- Form Buttons -->
+      <div class="flex justify-between">
+        <button type="reset" class="bg-gray-300 text-gray-700 px-6 py-2 rounded-md shadow-md">Clear</button>
+        <button type="submit" class="bg-[#081828] text-white px-6 py-2 rounded-md shadow-md">Submit</button>
+      </div>
+    </form>
+  </section>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+
+    // Populate sections based on class
+    const classSelect = document.getElementById('classSelect');
+    const sectionSelect = document.getElementById('sectionSelect');
+
+    classSelect.addEventListener('change', () => {
+      const sections = {
+        Japanese: ['Japanese'],
+        French: ['French'],
+        Chinese: ['Chinese'],
+        Korean: ['Korean'],
+        Hindi: ['Hindi'],
+        English: ['English'],
+        Russian: ['Russian'],
+        Italy: ['Italy'],
+        Arabic: ['Arabic'],
+        German: ['German']
+      };
+      sectionSelect.innerHTML = '<option value="">Select</option>';
+      (sections[classSelect.value] || []).forEach(sec => {
+        const option = document.createElement('option');
+        option.value = sec;
+        option.textContent = sec;
+        sectionSelect.appendChild(option);
+      });
+    });
+  </script>
+      <script src="../js/get.js"></script>
+</body>
+</html>

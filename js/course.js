@@ -29,6 +29,54 @@ async function renderCourses() {
             description.innerText = course.description;
             card.appendChild(description);
 
+            // Add Entry Requirements
+            const entryReqContainer = document.createElement("div");
+            entryReqContainer.className = "course-info-container";
+
+            const entryReqTitle = document.createElement("p");
+            entryReqTitle.className = "course-info-title";
+            entryReqTitle.innerText = "Entry Requirements";
+
+            const entryReqValue = document.createElement("div");
+            entryReqValue.className = "course-info-value";
+            entryReqValue.innerText = course.entryRequirements;
+
+            entryReqContainer.appendChild(entryReqTitle);
+            entryReqContainer.appendChild(entryReqValue);
+            card.appendChild(entryReqContainer);
+
+            // Add Commencement
+            const commencementContainer = document.createElement("div");
+            commencementContainer.className = "course-info-container";
+
+            const commencementTitle = document.createElement("p");
+            commencementTitle.className = "course-info-title";
+            commencementTitle.innerText = "Commencement";
+
+            const commencementValue = document.createElement("div");
+            commencementValue.className = "course-info-value";
+            commencementValue.innerText = course.commencement;
+
+            commencementContainer.appendChild(commencementTitle);
+            commencementContainer.appendChild(commencementValue);
+            card.appendChild(commencementContainer);
+
+            // Add Course Structure and Modules
+            const structureContainer = document.createElement("div");
+            structureContainer.className = "course-info-container";
+
+            const structureTitle = document.createElement("p");
+            structureTitle.className = "course-info-title";
+            structureTitle.innerText = "Course Structure and Modules";
+
+            const structureValue = document.createElement("div");
+            structureValue.className = "course-info-value";
+            structureValue.innerText = course.courseStructureAndModules;
+
+            structureContainer.appendChild(structureTitle);
+            structureContainer.appendChild(structureValue);
+            card.appendChild(structureContainer);
+
             // Append card to the container
             coursesContainer.appendChild(card);
         });
@@ -39,6 +87,8 @@ async function renderCourses() {
 
 // Render the courses
 renderCourses();
+
+
 
 
 function startCarousel() {

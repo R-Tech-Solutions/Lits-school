@@ -1,14 +1,19 @@
-require('dotenv').config(); 
 const express = require('express');
-const path = require('path');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer');
 const mongoose = require('mongoose');
+const path = require('path');
+const dotenv = require('dotenv');
 const multer = require('multer');
 const sharp = require('sharp');
+
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT
 
-
+app.use(cors());
 app.use(express.json());
 
 
@@ -20,13 +25,18 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-const courseSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  description: { type: String, required: true }
-});
-
-
-const Course = mongoose.model('Course', courseSchema);
+  const CourseSchema = new mongoose.Schema({
+      title: { type: String, required: true },
+      description: { type: String, required: true },
+      entryRequirements: { type: String, default: 'Not Specified' },
+      commencement: { type: String, default: 'Not Specified' },
+      courseStructureAndModules: { type: String, default: 'Not Specified' }
+  });
+  
+  const Course = mongoose.model('Course', CourseSchema);
+  
+  module.exports = Course;
+  
 
 
 app.get('/api/courses', async (req, res) => {
@@ -38,20 +48,25 @@ app.get('/api/courses', async (req, res) => {
   }
 });
 
-// API endpoint to add a course
 app.post('/api/courses', async (req, res) => {
-  const { title, description } = req.body;
+  const { title, description, entryRequirements = "Anyone", commencement, courseStructureAndModules } = req.body;
 
   if (!title || !description) {
     return res.status(400).json({ error: 'Title and description are required' });
   }
 
   try {
-    const newCourse = new Course({ title, description });
-    await newCourse.save();
+    const newCourse = new Course({
+      title,
+      description,
+      entryRequirements,
+      commencement,
+      courseStructureAndModules,
+    });
+    await newCourse.save(); // Save the new course to the database
     res.status(201).json({ message: 'Course added successfully', course: newCourse });
   } catch (error) {
-    res.status(500).json({ error: 'Error adding course' });
+    res.status(500).json({ error: 'Error adding course' }); // Handle server errors
   }
 });
 
@@ -154,7 +169,69 @@ app.get('/image/:id', async (req, res) => {
   }
 });
 
-// Serve the frontend
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'm.mohamed.shinan@gmail.com',
+    pass: 'whyd uywx twpr luwu',
+  },
+});
+
+
+app.post('/submit-admission', async (req, res) => {
+  const {
+    academicDetails,
+    firstName,
+    lastName,
+    gender,
+    dob,
+    mobile,
+    email,
+    address,
+    guardianRelation,
+    guardianName,
+    guardianMobile,
+  } = req.body;
+
+  const mailOptions = {
+    from: 'm.mohamed.shinan@gmail.com',
+    to: 'm.mohamed.shinan@gmail.com',
+    subject: 'New Admission Form Submission',
+    html: `
+      <h2>Admission Form Submission</h2>
+      <h2>Admission Form Submission</h2>
+      <h3>Academic Details</h3>
+      <p><strong>School Name:</strong> ${academicDetails.schoolName}</p>
+      <p><strong>Class:</strong> ${academicDetails.class}</p>
+      <p><strong>Section:</strong> ${academicDetails.section}</p>
+      <h3>Student Details</h3>
+      <p><strong>First Name:</strong> ${firstName}</p>
+      <p><strong>Last Name:</strong> ${lastName}</p>
+      <p><strong>Gender:</strong> ${gender}</p>
+      <p><strong>Date of Birth:</strong> ${dob}</p>
+      <p><strong>Mobile Number:</strong> ${mobile}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Address:</strong> ${address}</p>
+
+      <h3>Guardian Details</h3>
+      <p><strong>Relation:</strong> ${guardianRelation}</p>
+      <p><strong>Guardian Name:</strong> ${guardianName}</p>
+      <p><strong>Guardian Mobile:</strong> ${guardianMobile}</p>
+    `,
+  };
+
+  // Send the email
+  try {
+    await transporter.sendMail(mailOptions);
+    res.status(200).json({ success: true, message: 'Email sent successfully!' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Failed to send email' });
+  }
+});
+
+
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './index.html'));
 });
