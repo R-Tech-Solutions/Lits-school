@@ -5,7 +5,7 @@ const nodemailer = require('nodemailer');
 const mongoose = require('mongoose');
 const path = require('path');
 const dotenv = require('dotenv');
-const multer = require('multer');
+const multer = require('multer'); 
 const sharp = require('sharp');
 
 dotenv.config();
@@ -171,12 +171,15 @@ app.get('/image/:id', async (req, res) => {
 
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.office365.com',
+  port: 587, 
+  secure: false,
   auth: {
-    user: 'm.mohamed.shinan@gmail.com',
-    pass: 'whyd uywx twpr luwu',
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
   },
 });
+
 
 
 app.post('/api/submit-admission', async (req, res) => {
@@ -195,8 +198,8 @@ app.post('/api/submit-admission', async (req, res) => {
   } = req.body;
 
   const mailOptions = {
-    from: 'm.mohamed.shinan@gmail.com',
-    to: 'm.mohamed.shinan@gmail.com',
+    from: 'info@rtechsl.com',
+    to: 'litskandy24@gmail.com',
     subject: 'New Admission Form Submission',
     html: `
       <h2>Admission Form Submission</h2>

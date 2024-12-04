@@ -90,39 +90,40 @@ renderCourses();
 
 
 
-
 function startCarousel() {
     const carouselTrack = document.getElementById('carousel-track');
     const carouselItems = Array.from(carouselTrack.children);
 
-
     const itemWidth = carouselItems[0].offsetWidth;
     const visibleItemsCount = Math.ceil(window.innerWidth / itemWidth);
 
-  
-    for (let i = 0; i < visibleItemsCount; i++) {
-        const clone = carouselItems[i % carouselItems.length].cloneNode(true);
-        carouselTrack.appendChild(clone);
-    }
-
-    let scrollAmount = 0;
-    let totalItems = carouselItems.length + visibleItemsCount;
-
-    setInterval(() => {
-        scrollAmount += itemWidth;
-        carouselTrack.style.transition = "transform 0.5s ease";
-        carouselTrack.style.transform = `translateX(-${scrollAmount}px)`;
-
-       
-        if (scrollAmount >= itemWidth * carouselItems.length) {
-            setTimeout(() => {
-                carouselTrack.style.transform = `translateX(0)`;
-                scrollAmount = 0;
-            }, 500); 
+    // For desktop view (not mobile)
+    if (window.innerWidth > 768) {
+        for (let i = 0; i < visibleItemsCount; i++) {
+            const clone = carouselItems[i % carouselItems.length].cloneNode(true);
+            carouselTrack.appendChild(clone);
         }
-    }, 3000); 
-}
 
+        let scrollAmount = 0;
+        let totalItems = carouselItems.length + visibleItemsCount;
+
+        setInterval(() => {
+            scrollAmount += itemWidth;
+            carouselTrack.style.transition = "transform 0.5s ease";
+            carouselTrack.style.transform = `translateX(-${scrollAmount}px)`;
+
+            if (scrollAmount >= itemWidth * carouselItems.length) {
+                setTimeout(() => {
+                    carouselTrack.style.transform = `translateX(0)`;
+                    scrollAmount = 0;
+                }, 500);
+            }
+        }, 3000); 
+    } else {
+        // Disable carousel scroll behavior on mobile view
+        carouselTrack.style.transition = "none";
+    }
+}
 
 async function fetchLectures() {
     const loader = document.getElementById('loader');
@@ -145,18 +146,16 @@ async function fetchLectures() {
 
 function renderLectures(lectures) {
     const carouselTrack = document.getElementById('carousel-track');
-    carouselTrack.innerHTML = ''; 
+    carouselTrack.innerHTML = '';
 
     lectures.forEach((lecture) => {
-       
         const lectureItem = document.createElement('div');
         lectureItem.className = 'carousel-item';
 
-       
         const lectureImage = document.createElement('img');
         lectureImage.className = 'lecture-image';
-        lectureImage.src = lecture.imageUrl; 
-        lectureImage.alt = lecture.name; 
+        lectureImage.src = lecture.imageUrl;
+        lectureImage.alt = lecture.name;
 
         const lectureName = document.createElement('h3');
         lectureName.className = 'lecture-name';
@@ -166,16 +165,14 @@ function renderLectures(lectures) {
         lecturePosition.className = 'lecture-position';
         lecturePosition.innerText = lecture.position;
 
-
         lectureItem.appendChild(lectureImage);
-        lectureItem.appendChild(lectureName); 
-        lectureItem.appendChild(lecturePosition); 
-
+        lectureItem.appendChild(lectureName);
+        lectureItem.appendChild(lecturePosition);
 
         carouselTrack.appendChild(lectureItem);
     });
 }
 
-
 document.addEventListener('DOMContentLoaded', fetchLectures);
+
 

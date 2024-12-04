@@ -100,9 +100,8 @@ body {
 
 .carousel-track {
   display: flex;
-  animation: transform 0.5s ease;
-  will-change: transform; 
   flex-wrap: nowrap;
+  transition: transform 0.5s ease;
 }
 
 .carousel-item {
@@ -113,22 +112,21 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: 15px;
   text-align: center;
-  display: flex; /* Added */
-  flex-direction: column; /* Added */
-  align-items: center; /* Added */
-  justify-content: center; /* Added */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   transition: transform 0.3s ease;
 }
 
 .lecture-image {
-  width: 100%; /* Adjusted to fit container width */
-  max-width: 150px; /* Restrict max size for consistency */
-  height: 200px; /* Maintain aspect ratio */
+  width: 100%;
+  max-width: 150px;
+  height: 200px;
   border-radius: 12px;
-  display: block; /* Ensures image behaves as a block-level element */
-  margin: 0 auto; /* Center horizontally */
+  display: block;
+  margin: 0 auto;
 }
-
 
 .lecture-name {
   font-size: 1.2em;
@@ -142,44 +140,41 @@ body {
   color: #555;
 }
 
-
-@keyframes scrollCarousel {
-  0% {
-      transform: translateX(0);
-  }
-  100% {
-      transform: translateX(-100%);
-  }
-}
-
-
-@media (max-width: 1024px) {
-  
+/* For medium and large screens */
+@media (min-width: 769px) {
   .carousel-item {
-      flex: 0 0 calc(33.33% - 30px);
+    flex: 0 0 calc(25% - 30px);
   }
 
   @keyframes scrollCarousel {
-      0% {
-          transform: translateX(0);
-      }
-      100% {
-          transform: translateX(-300%);
-      }
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
   }
 }
 
+/* For smaller screens (max-width: 768px) */
 @media (max-width: 768px) {
   .carousel-item {
-      flex: 0 0 calc(33.33% - 30px); 
+    flex: 0 0 calc(50% - 30px); /* Show two items per row */
+    margin: 10px;
   }
 
+  /* Disable carousel scroll for mobile view */
+  .carousel-track {
+    display: block; /* Stack items vertically */
+  }
+
+  /* No scrolling animation for mobile */
   @keyframes scrollCarousel {
-      0% {
-          transform: translateX(0);
-      }
-      100% {
-          transform: translateX(-300%); 
-      }
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(0);
+    }
   }
 }
