@@ -1,5 +1,5 @@
-document.getElementById('admissionForm').addEventListener('submit', async function(event) {
-    event.preventDefault(); 
+document.getElementById('admissionForm').addEventListener('submit', async function (event) {
+    event.preventDefault();
 
     const formData = new FormData(this);
     const formObject = {};
@@ -14,6 +14,17 @@ document.getElementById('admissionForm').addEventListener('submit', async functi
         section: formData.get('section'),
     };
 
+    // Show SweetAlert2 loader
+    Swal.fire({
+        title: 'Submitting...',
+        text: 'Please wait while we process your admission.',
+        imageUrl: '../images/loader.gif', // Use your loader image
+        imageWidth: 100,
+        imageHeight: 100,
+        showConfirmButton: false,
+        allowOutsideClick: false,
+    });
+
     // Send data to the backend
     try {
         const response = await fetch('/api/submit-admission', {
@@ -21,16 +32,36 @@ document.getElementById('admissionForm').addEventListener('submit', async functi
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formObject), 
+            body: JSON.stringify(formObject),
         });
 
         const result = await response.json();
         if (result.success) {
-            alert('Form submitted successfully!');
+            // Success alert
+            Swal.fire({
+                title: 'Success!',
+                text: 'Your form has been submitted successfully.',
+                icon: 'success',
+                confirmButtonText: 'OK',
+            }).then(() => {
+                // Reset form fields
+                document.getElementById('admissionForm').reset();
+            });
         } else {
-            alert('There was an error submitting the form.');
+            // Error alert
+            Swal.fire({
+                title: 'Error!',
+                text: 'There was an error submitting the form. Please try again.',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
         }
     } catch (error) {
-        alert('Error: ' + error.message);
+        Swal.fire({
+            title: 'Error!',
+            text: 'An unexpected error occurred: ' + error.message,
+            icon: 'error',
+            confirmButtonText: 'OK',
+        });
     }
 });

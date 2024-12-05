@@ -14,7 +14,7 @@ body {
 }
 
 :root {
-    --primary-color: #FF3B81;
+    --primary-color: #90D5FF;
     --dark-color: #1E1E1E;
     --white: #FFFFFF;
 }
@@ -98,38 +98,51 @@ nav a:hover {
 }
 
 .get-started:hover {
-    background-color: #ff2671;
+    background-color: black;
 }
 
 /* Slider Styles */
 /* General Styles for the Slider */
 .hero-slider {
     width: 100%;
-    height: 50%;
-    overflow: hidden;
+    height: 70vh; /* Maintain height proportional to viewport */
+    overflow: hidden; /* Hide any overflow content */
     background-color: #fff;
     position: relative;
     border: 2px solid #E6E6E6;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 0;
+    padding: 0;
 }
 
 .slider {
     display: flex;
-    height: 100%;
+    width: 100%;
+    height: 100%; /* Ensures it fills the container */
     transition: transform 0.5s ease-in-out;
+    margin: 0;
+    padding: 0;
 }
 
 .slide {
-    min-width: 100%;
-    height: 100%;
+    flex: 0 0 100%; 
+    width: 100%;/* Make each slide take full width */
+    height: 100%; /* Enforce height consistency */
+    display: flex; /* Align content inside slide */
+    justify-content: center;
+    align-items: center;
 }
 
 .slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    max-height: 100%; /* Restrict image height */
+    width: 100%; /* Maintain aspect ratio */
+    object-fit: cover; /* Cover container without distortion */
+    display: block;
+    margin: 0 auto;
 }
+
+
 
 /* Mobile View Styles */
 @media screen and (max-width: 768px) {
@@ -139,6 +152,8 @@ nav a:hover {
     }
     
     .slide img {
+        height: 100%;
+        width: 100%;
         object-fit: cover;
     }
 }
@@ -184,7 +199,7 @@ nav a:hover {
 .footer-title {
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
-    color: #FF3B81;
+    color: #90D5FF;
 }
 
 .footer-links {
@@ -200,7 +215,7 @@ nav a:hover {
 }
 
 .footer-link:hover {
-    color: #FF3B81;
+    color: #90D5FF;
 }
 
 .social-links {
@@ -222,7 +237,7 @@ nav a:hover {
 }
 
 .social-link:hover {
-    background: #FF3B81;
+    background: #90D5FF;
 }
 
 .footer-bottom {
@@ -241,18 +256,18 @@ nav a:hover {
     transform: rotate(45deg);
     width: 200%;
     height: 200%;
-    background-color: #FF3B81;
+    background-color: #90D5FF;
     opacity: 0.15;
     z-index: 0;
   }
 
   .input-style {
-    border: 1px solid #FF3B81;
+    border: 1px solid #90D5FF;
   }
 
   .input-style:focus {
     outline: none;
-    border-color: #FF3B81;
+    border-color: #90D5FF;
     box-shadow: 0 0 5px rgba(255, 59, 129, 0.5);
   }
 

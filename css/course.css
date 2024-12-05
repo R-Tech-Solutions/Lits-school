@@ -10,7 +10,7 @@
 /* Courses Section */
 .courses-section {
   padding: 20px;
-  background-color: #FF3B81;
+  background-color: #90D5FF;
   border-radius: 10px;
   margin: 0 auto;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -41,7 +41,7 @@
 /* Course Icon */
 .course-icon {
   font-size: 2rem;
-  color: #FF3B81;
+  color: #90D5FF;
   margin-bottom: 10px;
 }
 
@@ -72,7 +72,7 @@
 
 .course-info-title {
   font-weight: bold;
-  color: #FF3B81; /* Blue text for titles */
+  color: #0800ff; /* Blue text for titles */
   margin-bottom: 5px;
 }
 
@@ -171,10 +171,10 @@ body {
   /* No scrolling animation for mobile */
   @keyframes scrollCarousel {
     0% {
-      transform: translateY(0);
+display: block;
     }
     100% {
-      transform: translateY(0);
+      display: block;
     }
   }
 }

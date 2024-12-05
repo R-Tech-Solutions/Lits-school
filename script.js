@@ -7,7 +7,7 @@ function startSlider() {
     setInterval(() => {
         index = (index + 1) % slides.length;
         slider.style.transform = `translateX(-${index * 100}%)`;
-    }, 2000);
+    }, 3000);
 }
 
 document.addEventListener('DOMContentLoaded', startSlider);
